@@ -1,0 +1,796 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Home page for CPSC406 Term 2 2020">
+      
+      
+        <link rel="canonical" href="https://babhrujoshi.github.io/20T2-406/notes/Convex_function/">
+      
+      
+        <meta name="author" content="Michael P. Friedlander and Babhru Joshi">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.3">
+    
+    
+      
+        <title>Convex function - CPSC406 &mdash; Computational Optimization</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e35a1a6.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+        
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-4736412-7","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#convex-functions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://babhrujoshi.github.io/20T2-406/" title="CPSC406 &mdash; Computational Optimization" class="md-header-nav__button md-logo" aria-label="CPSC406 &mdash; Computational Optimization">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CPSC406 &mdash; Computational Optimization
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Convex function
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://babhrujoshi.github.io/20T2-406/" title="CPSC406 &mdash; Computational Optimization" class="md-nav__button md-logo" aria-label="CPSC406 &mdash; Computational Optimization">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CPSC406 &mdash; Computational Optimization
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home Page" class="md-nav__link">
+      Home Page
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../grades/" title="Grades" class="md-nav__link">
+      Grades
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Lecture notes
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Lecture notes" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Lecture notes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../background/" title="Mathematical background" class="md-nav__link">
+      Mathematical background
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Least_squares/" title="Least squares" class="md-nav__link">
+      Least squares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../QR_factorization/" title="QR factorization" class="md-nav__link">
+      QR factorization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Regularized_LS/" title="Regularized least squares" class="md-nav__link">
+      Regularized least squares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Non-linear_LS/" title="Non-linear least squares" class="md-nav__link">
+      Non-linear least squares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../unconstrained/" title="Unconstrained optimization" class="md-nav__link">
+      Unconstrained optimization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Gradient_Descent/" title="Gradient descent" class="md-nav__link">
+      Gradient descent
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Newtons_method/" title="Newton's method" class="md-nav__link">
+      Newton's method
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Quasi_newton/" title="Quasi-Newton methods" class="md-nav__link">
+      Quasi-Newton methods
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linear_constraint/" title="Linear constraint" class="md-nav__link">
+      Linear constraint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Convex_set/" title="Convex sets" class="md-nav__link">
+      Convex sets
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Constrained_optimization/" title="Constrained optimization" class="md-nav__link">
+      Constrained optimization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Convex function
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Convex function" class="md-nav__link md-nav__link--active">
+      Convex function
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#restriction-to-lines" class="md-nav__link">
+    Restriction to lines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations-that-preserve-convexity" class="md-nav__link">
+    Operations that preserve convexity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#characterizations-of-convex-function" class="md-nav__link">
+    Characterizations of convex function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimality-conditions" class="md-nav__link">
+    Optimality conditions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linear_programming/" title="Linear programming" class="md-nav__link">
+      Linear programming
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Homework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Homework" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Homework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../homework/" title="Submissions" class="md-nav__link">
+      Submissions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#restriction-to-lines" class="md-nav__link">
+    Restriction to lines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations-that-preserve-convexity" class="md-nav__link">
+    Operations that preserve convexity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#characterizations-of-convex-function" class="md-nav__link">
+    Characterizations of convex function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimality-conditions" class="md-nav__link">
+    Optimality conditions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="convex-functions"><strong>Convex functions</strong><a class="headerlink" href="#convex-functions" title="Permanent link">&para;</a></h1>
+<p>A function <span><span class="MathJax_Preview">f:\mathcal{C} → \R</span><script type="math/tex">f:\mathcal{C} → \R</script></span> is  convex if $\mathcal{C} is convex and the function satisfies</p>
+<div>
+<div class="MathJax_Preview">f(\theta \vx + (1-\theta)\vy) \leq \theta f(\vx) + (1-\theta) f(\vy),\text{ for all } \vx,\vy \in\mathcal{C} \text{ and } \theta\in[0,1].</div>
+<script type="math/tex; mode=display">f(\theta \vx + (1-\theta)\vy) \leq \theta f(\vx) + (1-\theta) f(\vy),\text{ for all } \vx,\vy \in\mathcal{C} \text{ and } \theta\in[0,1].</script>
+</div>
+<p>Intuitively, the function is convex if the line segment between <span><span class="MathJax_Preview">f(\vx)</span><script type="math/tex">f(\vx)</script></span> and <span><span class="MathJax_Preview">f(\vy)</span><script type="math/tex">f(\vy)</script></span>, for any <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> an <span><span class="MathJax_Preview">\vy</span><script type="math/tex">\vy</script></span>, lies above or on the graph of the function. If the line segment lies strictly above the graph of the function, then we say the function is strictly convex, i.e. <span><span class="MathJax_Preview">f:\mathcal{C} → \R</span><script type="math/tex">f:\mathcal{C} → \R</script></span> is  strictly convex if <span><span class="MathJax_Preview">\mathcal{C}</span><script type="math/tex">\mathcal{C}</script></span> is convex and the function satisfies</p>
+<div>
+<div class="MathJax_Preview">f(\theta \vx + (1-\theta)\vy) &lt; \theta f(\vx) + (1-\theta) f(\vy),\text{ for all } \vx,\vy \in\mathcal{C} \text{ and } \theta\in [0,1].</div>
+<script type="math/tex; mode=display">f(\theta \vx + (1-\theta)\vy) < \theta f(\vx) + (1-\theta) f(\vy),\text{ for all } \vx,\vy \in\mathcal{C} \text{ and } \theta\in [0,1].</script>
+</div>
+<p>These definitions can be used to describe (strictly) concave functions as well. We say a function <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is (strictly) concave if <span><span class="MathJax_Preview">-f</span><script type="math/tex">-f</script></span> is (strictly) convex.  Below are some examples of convex and concave functions:</p>
+<ol>
+<li>
+<p>Convex functions</p>
+<ol>
+<li>
+<p>Affine: <span><span class="MathJax_Preview">\va\trans\vx + \beta</span><script type="math/tex">\va\trans\vx + \beta</script></span> for any <span><span class="MathJax_Preview">\va\in\R^n</span><script type="math/tex">\va\in\R^n</script></span>, <span><span class="MathJax_Preview">\beta \in \R</span><script type="math/tex">\beta \in \R</script></span>.</p>
+</li>
+<li>
+<p>Exponential: <span><span class="MathJax_Preview">e^{\alpha x}</span><script type="math/tex">e^{\alpha x}</script></span> for any <span><span class="MathJax_Preview">\alpha \in \R</span><script type="math/tex">\alpha \in \R</script></span>.</p>
+</li>
+<li>
+<p>Powers: <span><span class="MathJax_Preview">x^\alpha</span><script type="math/tex">x^\alpha</script></span> on <span><span class="MathJax_Preview">\R_{ ++ }</span><script type="math/tex">\R_{ ++ }</script></span> for all <span><span class="MathJax_Preview">\alpha \geq 1</span><script type="math/tex">\alpha \geq 1</script></span> or <span><span class="MathJax_Preview">\alpha \leq 0</span><script type="math/tex">\alpha \leq 0</script></span>.</p>
+</li>
+<li>
+<p>Absolute value: <span><span class="MathJax_Preview">|x|^p</span><script type="math/tex">|x|^p</script></span> for al <span><span class="MathJax_Preview">p\geq 1</span><script type="math/tex">p\geq 1</script></span>.</p>
+</li>
+<li>
+<p>Negative entropy: <span><span class="MathJax_Preview">x\log x</span><script type="math/tex">x\log x</script></span> on <span><span class="MathJax_Preview">\R_{ ++ }</span><script type="math/tex">\R_{ ++ }</script></span>.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Concave functions</p>
+<ol>
+<li>
+<p>Affine: (see above)</p>
+</li>
+<li>
+<p>Powers: <span><span class="MathJax_Preview">x^\alpha</span><script type="math/tex">x^\alpha</script></span> on <span><span class="MathJax_Preview">\R_{++}</span><script type="math/tex">\R_{++}</script></span> for all <span><span class="MathJax_Preview">0\leq x\leq 1</span><script type="math/tex">0\leq x\leq 1</script></span>.</p>
+</li>
+<li>
+<p>Logarithm: <span><span class="MathJax_Preview">\log x</span><script type="math/tex">\log x</script></span> on <span><span class="MathJax_Preview">\R_{ ++ }</span><script type="math/tex">\R_{ ++ }</script></span>.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>In the following sections, unless otherwise stated, we assume the function is convex. However, the properties of these convex function can be adapted to concave functions as well.</p>
+<h2 id="restriction-to-lines"><strong>Restriction to lines</strong><a class="headerlink" href="#restriction-to-lines" title="Permanent link">&para;</a></h2>
+<p>A useful property of convex function is that every restriction of the function on a line is also convex. For a fixed <span><span class="MathJax_Preview">\vx\in\R^n</span><script type="math/tex">\vx\in\R^n</script></span> and <span><span class="MathJax_Preview">\vd \in \R^n</span><script type="math/tex">\vd \in \R^n</script></span>, the restriction of <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> along <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span> is <span><span class="MathJax_Preview">f(\vx +\alpha \vd)</span><script type="math/tex">f(\vx +\alpha \vd)</script></span>. Here, <span><span class="MathJax_Preview">\alpha \in\R</span><script type="math/tex">\alpha \in\R</script></span> sweeps the graph of the function starting at <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> in the direction of <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span>. More formally, the function <span><span class="MathJax_Preview">f:\mathcal{C} \rightarrow \R</span><script type="math/tex">f:\mathcal{C} \rightarrow \R</script></span>, where <span><span class="MathJax_Preview">\mathcal{C}\subseteq \R^n</span><script type="math/tex">\mathcal{C}\subseteq \R^n</script></span> is a convex set, is convex if and only if</p>
+<div>
+<div class="MathJax_Preview"> \psi(\alpha) = f(\vx+\alpha \vd)</div>
+<script type="math/tex; mode=display"> \psi(\alpha) = f(\vx+\alpha \vd)</script>
+</div>
+<p>is convex for all <span><span class="MathJax_Preview">\vx \in \mathcal{C}</span><script type="math/tex">\vx \in \mathcal{C}</script></span> and <span><span class="MathJax_Preview">\vd \in \R^n</span><script type="math/tex">\vd \in \R^n</script></span>.</p>
+<h2 id="operations-that-preserve-convexity"><strong>Operations that preserve convexity</strong><a class="headerlink" href="#operations-that-preserve-convexity" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Non-negative multiple</strong>: The function <span><span class="MathJax_Preview">\alpha f</span><script type="math/tex">\alpha f</script></span> is convex if <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is convex and <span><span class="MathJax_Preview">\alpha \geq 0</span><script type="math/tex">\alpha \geq 0</script></span>.</p>
+</li>
+<li>
+<p><strong>Sum (including infinite sums)</strong>: The function <span><span class="MathJax_Preview">f_1 + f_2</span><script type="math/tex">f_1 + f_2</script></span> is convex if <span><span class="MathJax_Preview">f_1</span><script type="math/tex">f_1</script></span> and <span><span class="MathJax_Preview">f_2</span><script type="math/tex">f_2</script></span> are convex functions.</p>
+</li>
+<li>
+<p><strong>Composition with affine function</strong>: Fix <span><span class="MathJax_Preview">\mA \in\R^{m\times n}</span><script type="math/tex">\mA \in\R^{m\times n}</script></span> and <span><span class="MathJax_Preview">\vb \in \R^m</span><script type="math/tex">\vb \in \R^m</script></span>. The function <span><span class="MathJax_Preview">f(\mA\vx+\vb)</span><script type="math/tex">f(\mA\vx+\vb)</script></span> is convex if <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is convex. </p>
+</li>
+</ol>
+<p><strong><em>Example</em></strong></p>
+<ol>
+<li>
+<p>Log barrier: The function <span><span class="MathJax_Preview">f(x) = -\sum_{i = 1}^m \log(\va_i\trans\vx - b_i)</span><script type="math/tex">f(x) = -\sum_{i = 1}^m \log(\va_i\trans\vx - b_i)</script></span> is convex over the set <span><span class="MathJax_Preview">\cap _{i = 1}^m\{\vx\in\R^n | \va_i\trans\vx&gt;b_i\}</span><script type="math/tex">\cap _{i = 1}^m\{\vx\in\R^n | \va_i\trans\vx>b_i\}</script></span></p>
+</li>
+<li>
+<p>Norm of affine function: The function <span><span class="MathJax_Preview">f(x) = \|\mA\vx-\vb\|</span><script type="math/tex">f(x) = \|\mA\vx-\vb\|</script></span> is convex.</p>
+</li>
+<li>
+<p>The function <span><span class="MathJax_Preview">f(x_1, x_2, x_3) = e^{x_1 - x_2 + x_3} +e^{2x_2} + x_1</span><script type="math/tex">f(x_1, x_2, x_3) = e^{x_1 - x_2 + x_3} +e^{2x_2} + x_1</script></span> is convex.</p>
+</li>
+</ol>
+<h2 id="characterizations-of-convex-function"><strong>Characterizations of convex function</strong><a class="headerlink" href="#characterizations-of-convex-function" title="Permanent link">&para;</a></h2>
+<p>One intuitive property of the convex function is that every point on the graph of the function is supported by a hyperplane. This property is summarized by the following first order characterization of convex functions.</p>
+<hr />
+<p><strong><em>Lemma</em></strong> Let <span><span class="MathJax_Preview">f:\mathcal{C}\rightarrow \R</span><script type="math/tex">f:\mathcal{C}\rightarrow \R</script></span> be continuously differentiable over a convex set <span><span class="MathJax_Preview">\mathcal{C} \subseteq \R^n</span><script type="math/tex">\mathcal{C} \subseteq \R^n</script></span>. Then <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is convex if and only if </p>
+<div>
+<div class="MathJax_Preview"> f(\vx) + \nabla f(\vx)\trans(\vy - \vx) \leq f(\vy) \text{ for all } \vx, \vy \in \mathcal{C}.</div>
+<script type="math/tex; mode=display"> f(\vx) + \nabla f(\vx)\trans(\vy - \vx) \leq f(\vy) \text{ for all } \vx, \vy \in \mathcal{C}.</script>
+</div>
+<p><strong><em>Proof Idea</em></strong> By convexity of <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span>, we have</p>
+<div>
+<div class="MathJax_Preview"> f(\theta \vy +(1-\theta) \vx) \leq \theta f(\vy)+(1-\theta)f(\vx)</div>
+<script type="math/tex; mode=display"> f(\theta \vy +(1-\theta) \vx) \leq \theta f(\vy)+(1-\theta)f(\vx)</script>
+</div>
+<p>for all <span><span class="MathJax_Preview">\vx,\vy\in\mathcal{C}</span><script type="math/tex">\vx,\vy\in\mathcal{C}</script></span> and <span><span class="MathJax_Preview">\theta \in [0,1]</span><script type="math/tex">\theta \in [0,1]</script></span>. This implies that</p>
+<div>
+<div class="MathJax_Preview"> \frac{f(\theta \vy +(1-\theta) \vx) - f(x)}{\theta} \leq f(\vy)-f(\vx).</div>
+<script type="math/tex; mode=display"> \frac{f(\theta \vy +(1-\theta) \vx) - f(x)}{\theta} \leq f(\vy)-f(\vx).</script>
+</div>
+<p>Taking <span><span class="MathJax_Preview">\lim \theta ↘ 0</span><script type="math/tex">\lim \theta ↘ 0</script></span>, we get <span><span class="MathJax_Preview">f'(\vx; \vy-\vx) \leq f(\vy) - f(\vx)</span><script type="math/tex">f'(\vx; \vy-\vx) \leq f(\vy) - f(\vx)</script></span>. Since, <span><span class="MathJax_Preview">f'(\vx; \vy-\vx) = \nabla f(\vx)\trans (\vy-\vx)</span><script type="math/tex">f'(\vx; \vy-\vx) = \nabla f(\vx)\trans (\vy-\vx)</script></span>, we have <span><span class="MathJax_Preview">f(\vx) + \nabla f(\vx)\trans(\vy - \vx) \leq f(\vy)</span><script type="math/tex">f(\vx) + \nabla f(\vx)\trans(\vy - \vx) \leq f(\vy)</script></span>. This completes part of the proof.</p>
+<hr />
+<p>Now, we state the second order characterization of convex functions. The second order characterization relates the Hessian of the function with convexity.</p>
+<hr />
+<p><strong><em>Lemma</em></strong> Let <span><span class="MathJax_Preview">f:\mathcal{C}\rightarrow \R</span><script type="math/tex">f:\mathcal{C}\rightarrow \R</script></span> be twice continuously differentiable over a convex set <span><span class="MathJax_Preview">\mathcal{C} \subseteq \R^n</span><script type="math/tex">\mathcal{C} \subseteq \R^n</script></span>. Then <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is convex if and only if <span><span class="MathJax_Preview">\nabla^2f(\vx) ⪰ 0</span><script type="math/tex">\nabla^2f(\vx) ⪰ 0</script></span> for all <span><span class="MathJax_Preview">\vx \in \mathcal{C}</span><script type="math/tex">\vx \in \mathcal{C}</script></span>.</p>
+<p>The level set of function <span><span class="MathJax_Preview">f:\mathcal{C}→\R</span><script type="math/tex">f:\mathcal{C}→\R</script></span> is the set </p>
+<div>
+<div class="MathJax_Preview"> [f\leq \alpha] := \{\vx \in \mathcal{C}\ |\ f(\vx) \leq \alpha\}.</div>
+<script type="math/tex; mode=display"> [f\leq \alpha] := \{\vx \in \mathcal{C}\ |\ f(\vx) \leq \alpha\}.</script>
+</div>
+<hr />
+<p><strong><em>Lemma</em></strong> If <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is convex then all of its level sets are convex.</p>
+<p><strong><em>Proof</em></strong> Take <span><span class="MathJax_Preview">\vx,\vy \in [f \leq \alpha]</span><script type="math/tex">\vx,\vy \in [f \leq \alpha]</script></span>. Then <span><span class="MathJax_Preview">f(\vx) \leq \alpha</span><script type="math/tex">f(\vx) \leq \alpha</script></span> and <span><span class="MathJax_Preview">f(\vy) \leq \alpha</span><script type="math/tex">f(\vy) \leq \alpha</script></span>. Since <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is convex, we have that for all <span><span class="MathJax_Preview">\theta \in [0,1]</span><script type="math/tex">\theta \in [0,1]</script></span></p>
+<div>
+<div class="MathJax_Preview">\begin{align}
+f(\theta \vx + (1-\theta)\vy) &amp;\leq \theta f(\vx) + (1-\theta)f(\vy)\\ &amp;\leq \theta \alpha + (1-\theta) \alpha\\ &amp;= \alpha.\end{align}</div>
+<script type="math/tex; mode=display">\begin{align}
+f(\theta \vx + (1-\theta)\vy) &\leq \theta f(\vx) + (1-\theta)f(\vy)\\ &\leq \theta \alpha + (1-\theta) \alpha\\ &= \alpha.\end{align}</script>
+</div>
+<p>Thus, <span><span class="MathJax_Preview">\theta \vx +(1-\theta)\vy \in [f\leq \alpha]</span><script type="math/tex">\theta \vx +(1-\theta)\vy \in [f\leq \alpha]</script></span>. QED</p>
+<hr />
+<p><strong><em>Corollary</em></strong> The set of minimizers of 
+\begin{equation}\label{convex opt}
+\min_{\vx}  f(\vx) \text{ subject to } \vx \in \mathcal{C}
+\end{equation}
+is convex.</p>
+<h2 id="optimality-conditions"><strong>Optimality conditions</strong><a class="headerlink" href="#optimality-conditions" title="Permanent link">&para;</a></h2>
+<p>Convex function enjoys simple global optimality conditions. The main reason for this is any local minimizer of a convex function is also a global minimizer. In order to formalize this property of convex optimization, we first define local and global minimizers. We say <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> is a local minimizer of \eqref{convex opt} if <span><span class="MathJax_Preview">f(\vx^*)\leq f(\vx)</span><script type="math/tex">f(\vx^*)\leq f(\vx)</script></span> for all <span><span class="MathJax_Preview">\vx \in \mathcal{C}\cap \mathcal{B}_{ϵ}(\vx^*)</span><script type="math/tex">\vx \in \mathcal{C}\cap \mathcal{B}_{ϵ}(\vx^*)</script></span>. Here, <span><span class="MathJax_Preview">\mathcal{B}_{ϵ}(\vx^*)</span><script type="math/tex">\mathcal{B}_{ϵ}(\vx^*)</script></span> is the set <span><span class="MathJax_Preview">\{\vx\in \R^n | \|\vx-\vx^*\| \leq ϵ\}</span><script type="math/tex">\{\vx\in \R^n | \|\vx-\vx^*\| \leq ϵ\}</script></span>. While local minimizer is a statement for points around a point, global minimizer is a statement for all points in the set <span><span class="MathJax_Preview">\mathcal{C}</span><script type="math/tex">\mathcal{C}</script></span>. We say <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> is a global minimizer of \eqref{convex opt} if <span><span class="MathJax_Preview">f(\vx^*)\leq f(\vx)</span><script type="math/tex">f(\vx^*)\leq f(\vx)</script></span> for all <span><span class="MathJax_Preview">\vx \in \mathcal{C}</span><script type="math/tex">\vx \in \mathcal{C}</script></span>.</p>
+<hr />
+<p><strong><em>lemma</em></strong> Consider the optimization program \eqref{convex opt}. If <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> is a local minimizer of \eqref{convex opt}, then it is also a global minimizer of \eqref{convex opt}.</p>
+<p><strong><em>Proof</em></strong> Suppose <span><span class="MathJax_Preview">\bar{\vx}</span><script type="math/tex">\bar{\vx}</script></span> is a local minimizer, but not a global minimizer. Then there exists <span><span class="MathJax_Preview">\vy \in \mathcal{C}</span><script type="math/tex">\vy \in \mathcal{C}</script></span> such that <span><span class="MathJax_Preview">f(\vy) \leq f(\bar{\vx})</span><script type="math/tex">f(\vy) \leq f(\bar{\vx})</script></span>. Also, for any <span><span class="MathJax_Preview">\theta \in [0,1]</span><script type="math/tex">\theta \in [0,1]</script></span>, we have</p>
+<div>
+<div class="MathJax_Preview">\begin{align*}f(\theta \bar{\vx} + (1-\theta)\vy)&amp;\leq \theta f(\bar{\vx}) + (1-\theta)f(\vy)\\&amp;\leq\theta \bar{\vx} + (1-\theta)f(\bar{\vx})\\ &amp;= f(\bar{\vx}).\end{align*}</div>
+<script type="math/tex; mode=display">\begin{align*}f(\theta \bar{\vx} + (1-\theta)\vy)&\leq \theta f(\bar{\vx}) + (1-\theta)f(\vy)\\&\leq\theta \bar{\vx} + (1-\theta)f(\bar{\vx})\\ &= f(\bar{\vx}).\end{align*}</script>
+</div>
+<p>This is contradiction. QED</p>
+<hr />
+<p>Recall that a point <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> is a minimizer of a twice continuously differentiable <span><span class="MathJax_Preview">f:\R^n →\R</span><script type="math/tex">f:\R^n →\R</script></span> if and only if <span><span class="MathJax_Preview">\nabla f(\vx) = 0</span><script type="math/tex">\nabla f(\vx) = 0</script></span> and <span><span class="MathJax_Preview">\nabla^2 f(\vx) ⪰ 0</span><script type="math/tex">\nabla^2 f(\vx) ⪰ 0</script></span>. However, if a function is convex, <span><span class="MathJax_Preview">\nabla f(\vx) = 0</span><script type="math/tex">\nabla f(\vx) = 0</script></span> is a sufficient and necessary condition for <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> to be a minimizer. Since all minimizers of a convex function is a global minimizer, <span><span class="MathJax_Preview">\nabla f(\vx) = 0</span><script type="math/tex">\nabla f(\vx) = 0</script></span> is sufficient and necessary to assert global optimality of <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span>. </p>
+<hr />
+<p><strong><em>Lemma (unconstrained)</em></strong> Let <span><span class="MathJax_Preview">f:\R^n → \R</span><script type="math/tex">f:\R^n → \R</script></span> be a continuously differentiable (strict) convex function. A point <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> is a (unique) global minimizer of <span><span class="MathJax_Preview">f(\vx)</span><script type="math/tex">f(\vx)</script></span> if and only if <span><span class="MathJax_Preview">\nabla f(\vx^*) = 0</span><script type="math/tex">\nabla f(\vx^*) = 0</script></span>.</p>
+<p><strong><em>Lemma (constrained)</em></strong> Let <span><span class="MathJax_Preview">f:\mathcal{C} → \R</span><script type="math/tex">f:\mathcal{C} → \R</script></span> be a continuously differentiable (strict) convex function. A point <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> is a (unique) global minimizer of <span><span class="MathJax_Preview">f(\vx)</span><script type="math/tex">f(\vx)</script></span> over the set <span><span class="MathJax_Preview">\mathcal{C}</span><script type="math/tex">\mathcal{C}</script></span> if and only if <span><span class="MathJax_Preview">\nabla f(\vx^*)\trans (\vz - \vx^*) \geq 0</span><script type="math/tex">\nabla f(\vx^*)\trans (\vz - \vx^*) \geq 0</script></span> for all <span><span class="MathJax_Preview">\vz \in \mathcal{C}.</span><script type="math/tex">\vz \in \mathcal{C}.</script></span></p>
+<hr />
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Constrained_optimization/" title="Constrained optimization" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Constrained optimization
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Linear_programming/" title="Linear programming" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Linear programming
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Michael Friedlander and Babhru Joshi
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a45f732b.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.c03f0417.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

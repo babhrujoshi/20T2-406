@@ -1,0 +1,968 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Home page for CPSC406 Term 2 2020">
+      
+      
+        <link rel="canonical" href="https://babhrujoshi.github.io/20T2-406/notes/Linear_programming/">
+      
+      
+        <meta name="author" content="Michael P. Friedlander and Babhru Joshi">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.3">
+    
+    
+      
+        <title>Linear programming - CPSC406 &mdash; Computational Optimization</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e35a1a6.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+        
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-4736412-7","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview")})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linear-programming" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://babhrujoshi.github.io/20T2-406/" title="CPSC406 &mdash; Computational Optimization" class="md-header-nav__button md-logo" aria-label="CPSC406 &mdash; Computational Optimization">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CPSC406 &mdash; Computational Optimization
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Linear programming
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://babhrujoshi.github.io/20T2-406/" title="CPSC406 &mdash; Computational Optimization" class="md-nav__button md-logo" aria-label="CPSC406 &mdash; Computational Optimization">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CPSC406 &mdash; Computational Optimization
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home Page" class="md-nav__link">
+      Home Page
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../grades/" title="Grades" class="md-nav__link">
+      Grades
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../schedule/" title="Schedule" class="md-nav__link">
+      Schedule
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Lecture notes
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Lecture notes" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Lecture notes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../background/" title="Mathematical background" class="md-nav__link">
+      Mathematical background
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Least_squares/" title="Least squares" class="md-nav__link">
+      Least squares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../QR_factorization/" title="QR factorization" class="md-nav__link">
+      QR factorization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Regularized_LS/" title="Regularized least squares" class="md-nav__link">
+      Regularized least squares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Non-linear_LS/" title="Non-linear least squares" class="md-nav__link">
+      Non-linear least squares
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../unconstrained/" title="Unconstrained optimization" class="md-nav__link">
+      Unconstrained optimization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Gradient_Descent/" title="Gradient descent" class="md-nav__link">
+      Gradient descent
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Newtons_method/" title="Newton's method" class="md-nav__link">
+      Newton's method
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Quasi_newton/" title="Quasi-Newton methods" class="md-nav__link">
+      Quasi-Newton methods
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Linear_constraint/" title="Linear constraint" class="md-nav__link">
+      Linear constraint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Convex_set/" title="Convex sets" class="md-nav__link">
+      Convex sets
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Constrained_optimization/" title="Constrained optimization" class="md-nav__link">
+      Constrained optimization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Convex_function/" title="Convex function" class="md-nav__link">
+      Convex function
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Linear programming
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Linear programming" class="md-nav__link md-nav__link--active">
+      Linear programming
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extreme-points" class="md-nav__link">
+    Extreme points
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standard-form-polyhedra" class="md-nav__link">
+    Standard-form polyhedra
+  </a>
+  
+    <nav class="md-nav" aria-label="Standard-form polyhedra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-solution-in-standard-form" class="md-nav__link">
+    Basic solution in standard form
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simplex-method" class="md-nav__link">
+    Simplex method
+  </a>
+  
+    <nav class="md-nav" aria-label="Simplex method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#construction-feasible-direction" class="md-nav__link">
+    Construction feasible direction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduced-cost" class="md-nav__link">
+    Reduced cost
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-a-stepsize" class="md-nav__link">
+    Choosing a stepsize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Homework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Homework" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Homework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../homework/" title="Submissions" class="md-nav__link">
+      Submissions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#extreme-points" class="md-nav__link">
+    Extreme points
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standard-form-polyhedra" class="md-nav__link">
+    Standard-form polyhedra
+  </a>
+  
+    <nav class="md-nav" aria-label="Standard-form polyhedra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-solution-in-standard-form" class="md-nav__link">
+    Basic solution in standard form
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simplex-method" class="md-nav__link">
+    Simplex method
+  </a>
+  
+    <nav class="md-nav" aria-label="Simplex method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#construction-feasible-direction" class="md-nav__link">
+    Construction feasible direction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduced-cost" class="md-nav__link">
+    Reduced cost
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-a-stepsize" class="md-nav__link">
+    Choosing a stepsize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="linear-programming"><strong>Linear Programming</strong><a class="headerlink" href="#linear-programming" title="Permanent link">&para;</a></h1>
+<p>Linear programming solves the following minimization program</p>
+<div>
+<div class="MathJax_Preview">\begin{equation}\label{non_stand_LP}
+\min_{\vx\in\R^n} \vc\trans\vx \text{ subject to } \mA\vx\leq \vb,
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}\label{non_stand_LP}
+\min_{\vx\in\R^n} \vc\trans\vx \text{ subject to } \mA\vx\leq \vb,
+\end{equation}</script>
+</div>
+<p>where <span><span class="MathJax_Preview">\mA \in \R^{m\times n}</span><script type="math/tex">\mA \in \R^{m\times n}</script></span>, <span><span class="MathJax_Preview">\vc \in \R^n</span><script type="math/tex">\vc \in \R^n</script></span>, and <span><span class="MathJax_Preview">\vb \in \R^m</span><script type="math/tex">\vb \in \R^m</script></span> are known a priori. In general, the optimization problem \eqref{non_stand_LP} has three possibilities:</p>
+<ol>
+<li>
+<p>The problem is infeasible, i.e. there exist no such <span><span class="MathJax_Preview">\vx \in \R^n</span><script type="math/tex">\vx \in \R^n</script></span> such that <span><span class="MathJax_Preview">\mA\vx \leq \vb</span><script type="math/tex">\mA\vx \leq \vb</script></span>.</p>
+</li>
+<li>
+<p>The problem is unbounded from below, i.e. there exist some <span><span class="MathJax_Preview">\vx = \vx_0 +\alpha \vd</span><script type="math/tex">\vx = \vx_0 +\alpha \vd</script></span> where <span><span class="MathJax_Preview">\mA\vx \leq \vb</span><script type="math/tex">\mA\vx \leq \vb</script></span> for all <span><span class="MathJax_Preview">\alpha\geq 0</span><script type="math/tex">\alpha\geq 0</script></span>, and <span><span class="MathJax_Preview">\vc\trans \vx &lt; 0</span><script type="math/tex">\vc\trans \vx < 0</script></span>. In this case <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span> is a direction that pushes the objective value to <span><span class="MathJax_Preview">-∞</span><script type="math/tex">-∞</script></span> while maintaining feasibility.</p>
+</li>
+<li>
+<p>The problem is feasible and has a finite minimum, i.e. there exist a point <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> such that <span><span class="MathJax_Preview">\mA\vx\leq \vb</span><script type="math/tex">\mA\vx\leq \vb</script></span> and the optimal value of \eqref{non_stand_LP} <span><span class="MathJax_Preview">p^* = \min\{\vc\trans\vx | \mA\vx\leq \vb\}</span><script type="math/tex">p^* = \min\{\vc\trans\vx | \mA\vx\leq \vb\}</script></span> satisfies <span><span class="MathJax_Preview">p^*&gt;-∞</span><script type="math/tex">p^*>-∞</script></span>.</p>
+</li>
+</ol>
+<p>In this lecture, we will assume the problem is always feasible and characterize the optimal points of \eqref{non_stand_LP}.</p>
+<h2 id="extreme-points"><strong>Extreme points</strong><a class="headerlink" href="#extreme-points" title="Permanent link">&para;</a></h2>
+<p>The constraint set in the linear program \eqref{non_stand_LP} is <span><span class="MathJax_Preview">\setP := \{x\in \R^n | \va_i\trans\vx \leq b_i,\ i = 1\,\dots, m\}</span><script type="math/tex">\setP := \{x\in \R^n | \va_i\trans\vx \leq b_i,\ i = 1\,\dots, m\}</script></span>. This set is the intersection of <span><span class="MathJax_Preview">m</span><script type="math/tex">m</script></span> half-spaces given by <span><span class="MathJax_Preview">\va_i\trans\vx \leq b_i</span><script type="math/tex">\va_i\trans\vx \leq b_i</script></span> and form a polyhedron (see figure below).</p>
+<p><center>
+<img src="../figures/polyhedron.svg" width = "400">
+</center></p>
+<p>Extreme points can be studied in many equivalent ways. A definition of extreme point is:</p>
+<p><strong><em>Definition</em></strong> A point <span><span class="MathJax_Preview">\vx \in \setP</span><script type="math/tex">\vx \in \setP</script></span> is an extreme point of <span><span class="MathJax_Preview">\setP</span><script type="math/tex">\setP</script></span> if there does not exist two vectors <span><span class="MathJax_Preview">\vy,\vz \in \setP</span><script type="math/tex">\vy,\vz \in \setP</script></span> such that <span><span class="MathJax_Preview">\vx = \lambda \vy + (1-\lambda)\vz</span><script type="math/tex">\vx = \lambda \vy + (1-\lambda)\vz</script></span> for any <span><span class="MathJax_Preview">\lambda \in (0,1)</span><script type="math/tex">\lambda \in (0,1)</script></span>. </p>
+<p>This definition states that an extreme point can not be in the interior of any line segment contained in the polyhedron. Another geometric way to view extreme points is via vertices of a polyhedron. A point <span><span class="MathJax_Preview">\bar{\vx}</span><script type="math/tex">\bar{\vx}</script></span> is an extreme point of a polyhedron if and only if <span><span class="MathJax_Preview">\bar{\vx}</span><script type="math/tex">\bar{\vx}</script></span> is an vertex. The vertex of a polyhedron is defined as:</p>
+<p><strong><em>Definition</em></strong> A point <span><span class="MathJax_Preview">\vx \in \setP</span><script type="math/tex">\vx \in \setP</script></span> is a vertex of <span><span class="MathJax_Preview">\setP</span><script type="math/tex">\setP</script></span> if there exists a vector <span><span class="MathJax_Preview">\vc</span><script type="math/tex">\vc</script></span> such that <span><span class="MathJax_Preview">\vc\trans\vx &lt;\vc\trans\vy</span><script type="math/tex">\vc\trans\vx <\vc\trans\vy</script></span> for all <span><span class="MathJax_Preview">\vy\in\setP</span><script type="math/tex">\vy\in\setP</script></span> with <span><span class="MathJax_Preview">\vy\neq \vx</span><script type="math/tex">\vy\neq \vx</script></span>.</p>
+<p><center>
+<img src="../figures/vertex.png" width = "400">
+</center></p>
+<p>We will consider yet another view of the extreme point that depends number of half-space constraints active as a strict equality. This will be useful when studying the simplex algorithm, which can be used to solve \eqref{non_stand_LP}. Let <span><span class="MathJax_Preview">\setB \subset \{1,\dots,m\}</span><script type="math/tex">\setB \subset \{1,\dots,m\}</script></span> be a set of row indices of the matrix <span><span class="MathJax_Preview">\mA</span><script type="math/tex">\mA</script></span>. Let <span><span class="MathJax_Preview">\mA_\setB</span><script type="math/tex">\mA_\setB</script></span> be the sub-matrix of <span><span class="MathJax_Preview">\mA</span><script type="math/tex">\mA</script></span> containing the rows indexed in <span><span class="MathJax_Preview">\setB</span><script type="math/tex">\setB</script></span>. Consider a point <span><span class="MathJax_Preview">\vx \in \setP</span><script type="math/tex">\vx \in \setP</script></span>. Note that there exists an index set <span><span class="MathJax_Preview">\setB(\vx)\subset \{1,\dots,m\}</span><script type="math/tex">\setB(\vx)\subset \{1,\dots,m\}</script></span> such that </p>
+<div>
+<div class="MathJax_Preview">\begin{align}
+&amp;\va_i\trans\vx = b_i \text{ for all } i\in \setB(\vx), \text{ and }\label{eq:boundary}\\
+&amp;\va_i\trans\vx &lt; b_i \text{ for all } i\in\setN :=\{1,\dots,m\}\backslash \setB(\vx). \label{eq:interior}
+\end{align}</div>
+<script type="math/tex; mode=display">\begin{align}
+&\va_i\trans\vx = b_i \text{ for all } i\in \setB(\vx), \text{ and }\label{eq:boundary}\\
+&\va_i\trans\vx < b_i \text{ for all } i\in\setN :=\{1,\dots,m\}\backslash \setB(\vx). \label{eq:interior}
+\end{align}</script>
+</div>
+<p>The index set <span><span class="MathJax_Preview">\setB</span><script type="math/tex">\setB</script></span> is called the active set and <span><span class="MathJax_Preview">\setN</span><script type="math/tex">\setN</script></span> is called the inactive set (if <span><span class="MathJax_Preview">\setB(\vx)</span><script type="math/tex">\setB(\vx)</script></span> is empty, then <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> is in the interior of the polyhedron). </p>
+<p><strong><em>Definition</em></strong> A point <span><span class="MathJax_Preview">\vx \in \setP</span><script type="math/tex">\vx \in \setP</script></span> is called a basic feasible solution if the vectors <span><span class="MathJax_Preview">\va_i</span><script type="math/tex">\va_i</script></span> for <span><span class="MathJax_Preview">i \in \setB(\vx)</span><script type="math/tex">i \in \setB(\vx)</script></span> are linearly independent and rank(<span><span class="MathJax_Preview">\mA_{\setB(\bar{\vx})}) = n</span><script type="math/tex">\mA_{\setB(\bar{\vx})}) = n</script></span>.</p>
+<p>We now state a theorem that relates extreme points, vertices and basic feasible solutions.</p>
+<p><strong><em>Theorem</em></strong> The following are equivalent:</p>
+<ol>
+<li>
+<p><span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> is an extreme point.</p>
+</li>
+<li>
+<p><span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> is a vertex.</p>
+</li>
+<li>
+<p><span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> is a basic feasible solution.</p>
+</li>
+</ol>
+<p>We now state an interesting property of every feasible Linear program that characterizes its optimal points.</p>
+<p><strong><em>Theorem</em></strong> Let <span><span class="MathJax_Preview">p^*</span><script type="math/tex">p^*</script></span> be the optimal value of the LP \eqref{non_stand_LP}. There exists a feasible extreme point <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> where <span><span class="MathJax_Preview">\vc\trans\vx^* = p^*</span><script type="math/tex">\vc\trans\vx^* = p^*</script></span>.</p>
+<p><strong><em>Proof</em></strong> Suppose <span><span class="MathJax_Preview">\vc\trans\hat{\vx} = p^*</span><script type="math/tex">\vc\trans\hat{\vx} = p^*</script></span>, but <span><span class="MathJax_Preview">\hat{\vx}</span><script type="math/tex">\hat{\vx}</script></span> is not an extreme point. Then the basic set <span><span class="MathJax_Preview">\setB(\hat{\vx}) = \{ i \ |\ \va_i\trans\hat{\vx} = b_i\}</span><script type="math/tex">\setB(\hat{\vx}) = \{ i \ |\ \va_i\trans\hat{\vx} = b_i\}</script></span> has few than <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> indices. So, the sub-matrix <span><span class="MathJax_Preview">\mA_{\setB(\hat{\vx})}</span><script type="math/tex">\mA_{\setB(\hat{\vx})}</script></span> has a non-trivial null-space. Pick some <span><span class="MathJax_Preview">\vv</span><script type="math/tex">\vv</script></span> in that null-space. Then either <span><span class="MathJax_Preview">\vc\trans\vv = 0</span><script type="math/tex">\vc\trans\vv = 0</script></span> or <span><span class="MathJax_Preview">\vc\trans\vv \neq 0</span><script type="math/tex">\vc\trans\vv \neq 0</script></span>. </p>
+<p>We will now proceed by considering possible cases. Suppose <span><span class="MathJax_Preview">\vc\trans\vv &lt;0</span><script type="math/tex">\vc\trans\vv <0</script></span> and consider <span><span class="MathJax_Preview">\tilde{\vx} = \hat{\vx} + \alpha \vv</span><script type="math/tex">\tilde{\vx} = \hat{\vx} + \alpha \vv</script></span>.  Note that for all <span><span class="MathJax_Preview">\alpha&gt;0</span><script type="math/tex">\alpha>0</script></span>, we have <span><span class="MathJax_Preview">\vc\trans\hat{\vx} &gt;\vc\trans\tilde{\vx}</span><script type="math/tex">\vc\trans\hat{\vx} >\vc\trans\tilde{\vx}</script></span> and <span><span class="MathJax_Preview">\mA_{\setB(\hat{\vx})}\hat{\vx} = \mA_{\setB(\hat{\vx})}\tilde{\vx}</span><script type="math/tex">\mA_{\setB(\hat{\vx})}\hat{\vx} = \mA_{\setB(\hat{\vx})}\tilde{\vx}</script></span>. Additionally, since we have <span><span class="MathJax_Preview">\mA_{\setN(\hat{\vx})}\hat{\vx} &lt; \vb_{\setN(\hat{\vx})}</span><script type="math/tex">\mA_{\setN(\hat{\vx})}\hat{\vx} < \vb_{\setN(\hat{\vx})}</script></span>, there exists an <span><span class="MathJax_Preview">\alpha &gt;0</span><script type="math/tex">\alpha >0</script></span> such that <span><span class="MathJax_Preview">\mA_{\setN(\hat{\vx})}\tilde{\vx} \leq \vb_{\setN(\hat{\vx})}</span><script type="math/tex">\mA_{\setN(\hat{\vx})}\tilde{\vx} \leq \vb_{\setN(\hat{\vx})}</script></span>. Thus, <span><span class="MathJax_Preview">\hat{\vx}</span><script type="math/tex">\hat{\vx}</script></span> is not an optimal point, which is a contradiction. The case with <span><span class="MathJax_Preview">\vc\trans\vv &gt;0</span><script type="math/tex">\vc\trans\vv >0</script></span> is similar.</p>
+<p>Lastly, suppose <span><span class="MathJax_Preview">\vc\trans\vv = 0</span><script type="math/tex">\vc\trans\vv = 0</script></span>. Then any adjacent extreme point is equally optimal (why?).</p>
+<h2 id="standard-form-polyhedra"><strong>Standard-form polyhedra</strong><a class="headerlink" href="#standard-form-polyhedra" title="Permanent link">&para;</a></h2>
+<p>In this section, we will outline the steps for converting a generic polyhedorn <span><span class="MathJax_Preview">\{\tilde{\vx}\ | \ \tilde{\mA}\tilde{\vx} = \tilde{\vb},\ \tilde{\mC}\tilde{\vx} \leq \tilde{\vd}\}</span><script type="math/tex">\{\tilde{\vx}\ | \ \tilde{\mA}\tilde{\vx} = \tilde{\vb},\ \tilde{\mC}\tilde{\vx} \leq \tilde{\vd}\}</script></span> into the standard-form. The standard-form of a polyhedron is </p>
+<div>
+<div class="MathJax_Preview">\begin{equation}\label{standard_form}
+\setP = \{\vx\ | \ \mA\vx = \vb, \vx\geq 0\}, \text{ where }  \vb \geq 0. 
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}\label{standard_form}
+\setP = \{\vx\ | \ \mA\vx = \vb, \vx\geq 0\}, \text{ where }  \vb \geq 0. 
+\end{equation}</script>
+</div>
+<p>The steps for converting to <span><span class="MathJax_Preview">\setP</span><script type="math/tex">\setP</script></span>, where <span><span class="MathJax_Preview">\mA</span><script type="math/tex">\mA</script></span> is some <span><span class="MathJax_Preview">m</span><script type="math/tex">m</script></span> by <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> matrix with <span><span class="MathJax_Preview">m\leq n</span><script type="math/tex">m\leq n</script></span>, are elementary and stated below:</p>
+<ol>
+<li>
+<p><strong>Free variable:</strong> A variable <span><span class="MathJax_Preview">\tilde{\vx}_i</span><script type="math/tex">\tilde{\vx}_i</script></span> is called a free variable if it has no constraints. Since every variable must be nonnegative in standard form, and there are no free variable, these variables must be converted. Every free variable <span><span class="MathJax_Preview">\tilde{\vx}_i</span><script type="math/tex">\tilde{\vx}_i</script></span> is replaced with two new nonnegative variables <span><span class="MathJax_Preview">\tilde{\vx}^{'}_i</span><script type="math/tex">\tilde{\vx}^{'}_i</script></span> and <span><span class="MathJax_Preview">\tilde{\vx}^{''}_i</span><script type="math/tex">\tilde{\vx}^{''}_i</script></span> with </p>
+<div>
+<div class="MathJax_Preview">\begin{equation}
+\tilde{\vx}_i = \tilde{\vx}^{'}_i - \tilde{\vx}^{''}_i.
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+\tilde{\vx}_i = \tilde{\vx}^{'}_i - \tilde{\vx}^{''}_i.
+\end{equation}</script>
+</div>
+<p>Here, <span><span class="MathJax_Preview">\tilde{\vx}^{'}_i</span><script type="math/tex">\tilde{\vx}^{'}_i</script></span> encodes the positive part of <span><span class="MathJax_Preview">\tilde{\vx}_i</span><script type="math/tex">\tilde{\vx}_i</script></span> and <span><span class="MathJax_Preview">\tilde{\vx}^{''}_i</span><script type="math/tex">\tilde{\vx}^{''}_i</script></span> encodes the negative part of <span><span class="MathJax_Preview">\tilde{\vx}_i</span><script type="math/tex">\tilde{\vx}_i</script></span>.</p>
+</li>
+<li>
+<p>For <span><span class="MathJax_Preview">\tilde{b}_i &lt; 0</span><script type="math/tex">\tilde{b}_i < 0</script></span>, we replace <span><span class="MathJax_Preview">\tilde{a}_i\trans\tilde{\vx} = \tilde{b}_i</span><script type="math/tex">\tilde{a}_i\trans\tilde{\vx} = \tilde{b}_i</script></span> with <span><span class="MathJax_Preview">(-\tilde{a}_i)\trans\tilde{\vx} = -\tilde{b}_i</span><script type="math/tex">(-\tilde{a}_i)\trans\tilde{\vx} = -\tilde{b}_i</script></span>. Similarly, For <span><span class="MathJax_Preview">\tilde{d}_i &lt; 0</span><script type="math/tex">\tilde{d}_i < 0</script></span>, we replace <span><span class="MathJax_Preview">\tilde{c}_i\trans\tilde{\vx} \leq \tilde{d}_i</span><script type="math/tex">\tilde{c}_i\trans\tilde{\vx} \leq \tilde{d}_i</script></span> with <span><span class="MathJax_Preview">(-\tilde{c}_i)\trans\tilde{\vx} \geq -\tilde{d}_i</span><script type="math/tex">(-\tilde{c}_i)\trans\tilde{\vx} \geq -\tilde{d}_i</script></span> and we replace <span><span class="MathJax_Preview">\tilde{c}_i\trans\tilde{\vx}\geq \tilde{d}_i</span><script type="math/tex">\tilde{c}_i\trans\tilde{\vx}\geq \tilde{d}_i</script></span> with <span><span class="MathJax_Preview">(-\tilde{c}_i)\trans\tilde{\vx} \leq -\tilde{d}_i</span><script type="math/tex">(-\tilde{c}_i)\trans\tilde{\vx} \leq -\tilde{d}_i</script></span>.</p>
+</li>
+<li>
+<p><strong>Surplus and Slack:</strong> After the right hand side of the inequality constarint satisfy nonnegativity constraint, these need to be converted to equality constraints. This is done by adding a surplus or slack variable. For inequality constrains of the form <span><span class="MathJax_Preview">\tilde{\vc}_i\trans\tilde{\vx}_i \leq \tilde{\vd}_i</span><script type="math/tex">\tilde{\vc}_i\trans\tilde{\vx}_i \leq \tilde{\vd}_i</script></span>, we introduce a new slack variable <span><span class="MathJax_Preview">s_i</span><script type="math/tex">s_i</script></span> and replace the inequality with the following two constraints:  <span><span class="MathJax_Preview">\tilde{\vc}_i\trans\tilde{\vx}_i + s_i = \tilde{\vd}_i</span><script type="math/tex">\tilde{\vc}_i\trans\tilde{\vx}_i + s_i = \tilde{\vd}_i</script></span> and <span><span class="MathJax_Preview">s_i\geq 0</span><script type="math/tex">s_i\geq 0</script></span>. Similarly, if <span><span class="MathJax_Preview">\tilde{\vc}_i\trans\tilde{\vx}_i \geq \tilde{\vd}_i</span><script type="math/tex">\tilde{\vc}_i\trans\tilde{\vx}_i \geq \tilde{\vd}_i</script></span>, we introduce a surplus variable.</p>
+</li>
+</ol>
+<h3 id="basic-solution-in-standard-form"><strong>Basic solution in standard form</strong><a class="headerlink" href="#basic-solution-in-standard-form" title="Permanent link">&para;</a></h3>
+<p>Recall that <span><span class="MathJax_Preview">\vx^* \in \R^n</span><script type="math/tex">\vx^* \in \R^n</script></span> is a basic solution if the vectors <span><span class="MathJax_Preview">\va_i</span><script type="math/tex">\va_i</script></span> for <span><span class="MathJax_Preview">i \in \setB(\vx^*)</span><script type="math/tex">i \in \setB(\vx^*)</script></span> are linearly indenpendent and rank<span><span class="MathJax_Preview">(\mA_{\setB(\vx^*)}) = n</span><script type="math/tex">(\mA_{\setB(\vx^*)}) = n</script></span>. In standard form, there are <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> variables, i.e. <span><span class="MathJax_Preview">x_1,\dots,x_n</span><script type="math/tex">x_1,\dots,x_n</script></span>, <span><span class="MathJax_Preview">m</span><script type="math/tex">m</script></span> equality constraints, and <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> inequality constraints. Since the basic set <span><span class="MathJax_Preview">\setB(\vx^*)</span><script type="math/tex">\setB(\vx^*)</script></span> for any basic solution <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> must have exactly n elements, exactly n of the <span><span class="MathJax_Preview">m+n</span><script type="math/tex">m+n</script></span> constraints are active at <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span>. The <span><span class="MathJax_Preview">m</span><script type="math/tex">m</script></span> equality constraints are always satisfied, thus exactly <span><span class="MathJax_Preview">n-m</span><script type="math/tex">n-m</script></span> of the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> inequality constraints <span><span class="MathJax_Preview">x_i\geq 0</span><script type="math/tex">x_i\geq 0</script></span> should be active at <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span>. This corresponds to eleminating <span><span class="MathJax_Preview">n-m</span><script type="math/tex">n-m</script></span> columns of <span><span class="MathJax_Preview">\mA</span><script type="math/tex">\mA</script></span> and choosing the remaining <span><span class="MathJax_Preview">m</span><script type="math/tex">m</script></span> columnns.</p>
+<p>Additionally, these <span><span class="MathJax_Preview">m</span><script type="math/tex">m</script></span> columns corresponding to a basic solution <span><span class="MathJax_Preview">\vx^*</span><script type="math/tex">\vx^*</script></span> are linearly independent. So, there exists a permutation matrix <span><span class="MathJax_Preview">\mP</span><script type="math/tex">\mP</script></span> such that</p>
+<div>
+<div class="MathJax_Preview">\begin{equation}
+\mA\mP = \begin{bmatrix}\mB &amp;\mN \end{bmatrix},
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+\mA\mP = \begin{bmatrix}\mB &\mN \end{bmatrix},
+\end{equation}</script>
+</div>
+<p>where <span><span class="MathJax_Preview">\mB</span><script type="math/tex">\mB</script></span> is a nonsingular matrix. Let <span><span class="MathJax_Preview">\bar{\mA} = \begin{bmatrix}\mB &amp; \mN\\ &amp; \mI\end{bmatrix}</span><script type="math/tex">\bar{\mA} = \begin{bmatrix}\mB & \mN\\ & \mI\end{bmatrix}</script></span> and <span><span class="MathJax_Preview">\bar{\vx} = \mP\trans\vx^*</span><script type="math/tex">\bar{\vx} = \mP\trans\vx^*</script></span>. So, </p>
+<div>
+<div class="MathJax_Preview">\begin{equation}
+\bar{\mA} \bar{\vx} = \begin{bmatrix}\mB &amp; \mN\\ &amp; \mI\end{bmatrix}\begin{bmatrix}\bar{\vx}_B \\ \bar{\vx}_N\end{bmatrix} = \begin{bmatrix} \vb \\ \vzero \end{bmatrix},
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+\bar{\mA} \bar{\vx} = \begin{bmatrix}\mB & \mN\\ & \mI\end{bmatrix}\begin{bmatrix}\bar{\vx}_B \\ \bar{\vx}_N\end{bmatrix} = \begin{bmatrix} \vb \\ \vzero \end{bmatrix},
+\end{equation}</script>
+</div>
+<p>which implies that the basic solution satifes <span><span class="MathJax_Preview">\mB\bar{\vx}_B = \vb</span><script type="math/tex">\mB\bar{\vx}_B = \vb</script></span> and <span><span class="MathJax_Preview">\bar{\vx}_N = \vzero</span><script type="math/tex">\bar{\vx}_N = \vzero</script></span>.</p>
+<h2 id="simplex-method"><strong>Simplex method</strong><a class="headerlink" href="#simplex-method" title="Permanent link">&para;</a></h2>
+<p>In this section, we will develop the simplex algorithm for a Linear Program in standard-form \eqref{standard_form}, where <span><span class="MathJax_Preview">\mA \in \R^{m\times n}</span><script type="math/tex">\mA \in \R^{m\times n}</script></span>. Throughout this section. we will assume that </p>
+<ol>
+<li>
+<p><span><span class="MathJax_Preview">\mA</span><script type="math/tex">\mA</script></span> has full row rank (no redundant rows).</p>
+</li>
+<li>
+<p>the LP is feasible</p>
+</li>
+<li>
+<p>all basic feasible solution (i.e. extreme points) are nondegenerate.</p>
+</li>
+</ol>
+<p>Let <span><span class="MathJax_Preview">\vx \in \setP = \{\vx\ |\ \mA\vx = \vb, \vx\geq \vzero\}</span><script type="math/tex">\vx \in \setP = \{\vx\ |\ \mA\vx = \vb, \vx\geq \vzero\}</script></span> be a feasible point. We say a direction <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span> is feasible at <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> if there exists a scalar <span><span class="MathJax_Preview">\alpha&gt;0</span><script type="math/tex">\alpha>0</script></span> such that <span><span class="MathJax_Preview">\vx+\alpha\vd \in \setP</span><script type="math/tex">\vx+\alpha\vd \in \setP</script></span>. The following subsections will outline the process for choosing a feasible direction and appropriate stepsize <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span>. The simple algorithm initializes at a basic feasible solution. We will also look at how to choose such an initialization.</p>
+<h3 id="construction-feasible-direction"><strong>Construction feasible direction</strong><a class="headerlink" href="#construction-feasible-direction" title="Permanent link">&para;</a></h3>
+<p>The goal of finding a feasible direction is to find a vector <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span> such that given <span><span class="MathJax_Preview">\vx \in \setP</span><script type="math/tex">\vx \in \setP</script></span>, we have that <span><span class="MathJax_Preview">\vx+\alpha\vd</span><script type="math/tex">\vx+\alpha\vd</script></span> is also in the polyhedron <span><span class="MathJax_Preview">\setP</span><script type="math/tex">\setP</script></span> for some <span><span class="MathJax_Preview">\alpha&gt; 0</span><script type="math/tex">\alpha> 0</script></span>. Precisely, this implies </p>
+<div>
+<div class="MathJax_Preview">\begin{equation}
+\vb = \mA(\vx+\alpha\vd) = \mA\vx + \alpha\mA\vd = b +\alpha \mA\vd.
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+\vb = \mA(\vx+\alpha\vd) = \mA\vx + \alpha\mA\vd = b +\alpha \mA\vd.
+\end{equation}</script>
+</div>
+<p>Thus, the feasible direction must be in the null space of <span><span class="MathJax_Preview">\mA</span><script type="math/tex">\mA</script></span> and satisfy <span><span class="MathJax_Preview">\mA\vd =\vzero</span><script type="math/tex">\mA\vd =\vzero</script></span>. Let <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> be a basic feasible solution. So, after some permutation, the following relation holds: <span><span class="MathJax_Preview">\mA\vx = \begin{bmatrix}\mB&amp;\mN\end{bmatrix}\begin{bmatrix}\vx_B\\ \vx_N\end{bmatrix} = \vb</span><script type="math/tex">\mA\vx = \begin{bmatrix}\mB&\mN\end{bmatrix}\begin{bmatrix}\vx_B\\ \vx_N\end{bmatrix} = \vb</script></span>. Correspondingly, we also have</p>
+<div>
+<div class="MathJax_Preview">\begin{equation}
+\vzero = \mA \vd = \begin{bmatrix}\mB&amp;\mN\end{bmatrix}\begin{bmatrix}\vd_B\\ \vd_N\end{bmatrix}  = \mB\vd_B + \mN\vd_N.
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+\vzero = \mA \vd = \begin{bmatrix}\mB&\mN\end{bmatrix}\begin{bmatrix}\vd_B\\ \vd_N\end{bmatrix}  = \mB\vd_B + \mN\vd_N.
+\end{equation}</script>
+</div>
+<p>Thus, we have </p>
+<div>
+<div class="MathJax_Preview">\begin{equation}\label{feasible_direction}
+\mB\vd_B = -\mN\vd_N.
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}\label{feasible_direction}
+\mB\vd_B = -\mN\vd_N.
+\end{equation}</script>
+</div>
+<p>Note that here <span><span class="MathJax_Preview">\mB \in \R^{m\times m}</span><script type="math/tex">\mB \in \R^{m\times m}</script></span> is non-singular and <span><span class="MathJax_Preview">N \in \R^{m\times (n-m)}</span><script type="math/tex">N \in \R^{m\times (n-m)}</script></span>. We can now choose a feaible direction by fixing an index <span><span class="MathJax_Preview">\eta_k \in N</span><script type="math/tex">\eta_k \in N</script></span>, which determines a single nonbasic direction to move along. So, the feasible direction <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span> corresponding to a nonbasic variable with index <span><span class="MathJax_Preview">\eta_k</span><script type="math/tex">\eta_k</script></span> satisfies:</p>
+<div>
+<div class="MathJax_Preview">\begin{equation}
+\vd_N = \ve_k \quad\text{ and } \quad\mB\vd_b = -\mN\vd_N = -\va_{\eta_k},
+\end{equation}</div>
+<script type="math/tex; mode=display">\begin{equation}
+\vd_N = \ve_k \quad\text{ and } \quad\mB\vd_b = -\mN\vd_N = -\va_{\eta_k},
+\end{equation}</script>
+</div>
+<p>where <span><span class="MathJax_Preview">\va_{\eta_k}</span><script type="math/tex">\va_{\eta_k}</script></span> is a column of <span><span class="MathJax_Preview">\mA = \begin{bmatrix}\mB &amp; \mN\end{bmatrix}</span><script type="math/tex">\mA = \begin{bmatrix}\mB & \mN\end{bmatrix}</script></span> corresponding to index <span><span class="MathJax_Preview">\eta_k \in N</span><script type="math/tex">\eta_k \in N</script></span>.</p>
+<h3 id="reduced-cost"><strong>Reduced cost</strong><a class="headerlink" href="#reduced-cost" title="Permanent link">&para;</a></h3>
+<p>The goal is to choose a feasible direction <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span> in such a way that it reduces the cost function (objective) <span><span class="MathJax_Preview">\phi(\vx) : = \vc\trans(\vx)</span><script type="math/tex">\phi(\vx) : = \vc\trans(\vx)</script></span>. Let <span><span class="MathJax_Preview">\bar{\vx} = \vx +\alpha \vd</span><script type="math/tex">\bar{\vx} = \vx +\alpha \vd</script></span>, where <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> is some basic feasible solution and <span><span class="MathJax_Preview">\alpha&gt;0</span><script type="math/tex">\alpha>0</script></span>. Consider the objective value at the next iterate <span><span class="MathJax_Preview">\vx + \alpha \vd</span><script type="math/tex">\vx + \alpha \vd</script></span> given by</p>
+<div>
+<div class="MathJax_Preview">
+\begin{align}
+\phi(\vx + \alpha \vx) &amp; = \vc\trans\bar{\vx}\nonumber\\
+&amp; = \vc\trans(\vx + \alpha \vd)\nonumber\\
+&amp; = \vc\trans\vx + \alpha \vc\trans\vd\nonumber\\
+&amp; = \phi(\vx) + \alpha (\underbrace{\vc_B\trans\vd_B + \vc_N\trans \vd_N}_{=: I})\label{obj_decrease}
+\end{align}.
+</div>
+<script type="math/tex; mode=display">
+\begin{align}
+\phi(\vx + \alpha \vx) & = \vc\trans\bar{\vx}\nonumber\\
+& = \vc\trans(\vx + \alpha \vd)\nonumber\\
+& = \vc\trans\vx + \alpha \vc\trans\vd\nonumber\\
+& = \phi(\vx) + \alpha (\underbrace{\vc_B\trans\vd_B + \vc_N\trans \vd_N}_{=: I})\label{obj_decrease}
+\end{align}.
+</script>
+</div>
+<p>The term <span><span class="MathJax_Preview">I</span><script type="math/tex">I</script></span> in the above equation is related to the reduced cost. Recall that the feasible direction satfies \eqref{feasible_direction}. So if feasible direction does note move along an index in the nonbasic set, i.e. <span><span class="MathJax_Preview">\vd_N = \vzero</span><script type="math/tex">\vd_N = \vzero</script></span> then this necessarily means that <span><span class="MathJax_Preview">\vd_B = 0</span><script type="math/tex">\vd_B = 0</script></span>. This is beacause <span><span class="MathJax_Preview">\vd_N = \vzero</span><script type="math/tex">\vd_N = \vzero</script></span> implies <span><span class="MathJax_Preview">\mB\vd_B = 0</span><script type="math/tex">\mB\vd_B = 0</script></span>. Since <span><span class="MathJax_Preview">\mB</span><script type="math/tex">\mB</script></span> is invertible, the null space of <span><span class="MathJax_Preview">\mB</span><script type="math/tex">\mB</script></span> is trivial and, consequently, <span><span class="MathJax_Preview">\mB\vd_B = 0</span><script type="math/tex">\mB\vd_B = 0</script></span> necessarily imples <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span> is the zero vector. So, the term <span><span class="MathJax_Preview">I= \vc_B\trans\vd_B + \vc_N\trans \vd_N</span><script type="math/tex">I= \vc_B\trans\vd_B + \vc_N\trans \vd_N</script></span> is zero for any feasible direction not aligned with a nonbasic variable. This leads to the following notion of reduced cost where we only consider directions along the nonbasic variable.</p>
+<p>For <span><span class="MathJax_Preview">j \in N</span><script type="math/tex">j \in N</script></span>, let </p>
+<div>
+<div class="MathJax_Preview">z_j = \vc_B\trans\vd_B + \vc_N\trans \ve_j = \vc_B\trans\vd_B + c_j.</div>
+<script type="math/tex; mode=display">z_j = \vc_B\trans\vd_B + \vc_N\trans \ve_j = \vc_B\trans\vd_B + c_j.</script>
+</div>
+<p>Additionally, \eqref{feasible_direction} implies that <span><span class="MathJax_Preview">\vd_B = -\mB^{-1} \va_j</span><script type="math/tex">\vd_B = -\mB^{-1} \va_j</script></span>. So, we have <span><span class="MathJax_Preview">z_j = -\vc_B \mB^{-1} \va_j + c_j</span><script type="math/tex">z_j = -\vc_B \mB^{-1} \va_j + c_j</script></span>. Recall from \eqref{obj_decrease}, the objective function decrease with <span><span class="MathJax_Preview">\vd = \begin{bmatrix}\vd_B\\ \vd_N\end{bmatrix} = \begin{bmatrix}\vzero\\ \ve_j\end{bmatrix}</span><script type="math/tex">\vd = \begin{bmatrix}\vd_B\\ \vd_N\end{bmatrix} = \begin{bmatrix}\vzero\\ \ve_j\end{bmatrix}</script></span> as a descent direction if <span><span class="MathJax_Preview">z_j &lt; 0</span><script type="math/tex">z_j < 0</script></span>. We gather <span><span class="MathJax_Preview">z_j</span><script type="math/tex">z_j</script></span> for all <span><span class="MathJax_Preview">j \in N</span><script type="math/tex">j \in N</script></span> and call this vector the reduced cost. So the reduced cost vector is <span><span class="MathJax_Preview">\vz \in \R^{|N|}</span><script type="math/tex">\vz \in \R^{|N|}</script></span> with </p>
+<div>
+<div class="MathJax_Preview">z_j = -\vc_B \mB^{-1} \va_j + c_j</div>
+<script type="math/tex; mode=display">z_j = -\vc_B \mB^{-1} \va_j + c_j</script>
+</div>
+<p>and <span><span class="MathJax_Preview">|N|</span><script type="math/tex">|N|</script></span> is the cardinality of the nonbasic set. We now state the Theorem for optimality of a basic feasible point.</p>
+<p><strong><em>Theorem</em></strong> Consider a basic feasible solution <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> with a reduced cost <span><span class="MathJax_Preview">\vz</span><script type="math/tex">\vz</script></span>. The following holds true:</p>
+<ol>
+<li>
+<p>If <span><span class="MathJax_Preview">\vz \geq 0</span><script type="math/tex">\vz \geq 0</script></span> then <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> is optimal.</p>
+</li>
+<li>
+<p>If <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span> is optimal and nondegenerate then <span><span class="MathJax_Preview">\vz \geq \vzero</span><script type="math/tex">\vz \geq \vzero</script></span>.</p>
+</li>
+</ol>
+<h3 id="choosing-a-stepsize"><strong>Choosing a stepsize</strong><a class="headerlink" href="#choosing-a-stepsize" title="Permanent link">&para;</a></h3>
+<p>Let <span><span class="MathJax_Preview">\vz</span><script type="math/tex">\vz</script></span> be the reduced cost at a basic feasible solution <span><span class="MathJax_Preview">\vx</span><script type="math/tex">\vx</script></span>. Note that the change objective for moving in the <span><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span>the nonbasic variable with index <span><span class="MathJax_Preview">\eta_p\in N</span><script type="math/tex">\eta_p\in N</script></span> is</p>
+<div>
+<div class="MathJax_Preview">\bar{\phi} = \phi + \alpha z_{\eta_p},</div>
+<script type="math/tex; mode=display">\bar{\phi} = \phi + \alpha z_{\eta_p},</script>
+</div>
+<p>where <span><span class="MathJax_Preview">\bar{\phi}</span><script type="math/tex">\bar{\phi}</script></span> is the objective value at the next iterate and <span><span class="MathJax_Preview">\phi</span><script type="math/tex">\phi</script></span> is the objective value at the current iterate. We will assume atleast one of the <span><span class="MathJax_Preview">z_i</span><script type="math/tex">z_i</script></span>'s satisfy <span><span class="MathJax_Preview">z_i &lt;0</span><script type="math/tex">z_i <0</script></span> (otherwise, the basic feasible solution is the optimal point). The idea for choosing a stepsize is to find </p>
+<div>
+<div class="MathJax_Preview">\alpha^* = \max\{\alpha\geq 0 \ | \vx + \alpha\vd \geq 0\}</div>
+<script type="math/tex; mode=display">\alpha^* = \max\{\alpha\geq 0 \ | \vx + \alpha\vd \geq 0\}</script>
+</div>
+<p>There are two possible cases:</p>
+<ol>
+<li>
+<p>If <span><span class="MathJax_Preview">\vd\geq \vzero</span><script type="math/tex">\vd\geq \vzero</script></span>, then <span><span class="MathJax_Preview">\vd</span><script type="math/tex">\vd</script></span> is an unbounded feasible direction of descent, i.e.</p>
+<div>
+<div class="MathJax_Preview"> x+\alpha\vd \geq \text{ for all } \alpha\geq 0.</div>
+<script type="math/tex; mode=display"> x+\alpha\vd \geq \text{ for all } \alpha\geq 0.</script>
+</div>
+<p>In this case, the optimal value for the LP is unbounded.</p>
+</li>
+<li>
+<p>If <span><span class="MathJax_Preview">d_j \leq 0</span><script type="math/tex">d_j \leq 0</script></span> for some <span><span class="MathJax_Preview">j</span><script type="math/tex">j</script></span>, then <span><span class="MathJax_Preview">\vx+\alpha\vd \geq \vzero</span><script type="math/tex">\vx+\alpha\vd \geq \vzero</script></span> only if </p>
+<div>
+<div class="MathJax_Preview"> \alpha -\frac{x_j}{d_j} \text{ for every } d_j &lt;0.</div>
+<script type="math/tex; mode=display"> \alpha -\frac{x_j}{d_j} \text{ for every } d_j <0.</script>
+</div>
+<p>If we choose <span><span class="MathJax_Preview">\alpha^*</span><script type="math/tex">\alpha^*</script></span> acording to the following ratio test</p>
+<div>
+<div class="MathJax_Preview"> \alpha^* = \min_{j\in \{j\in B| d_j&lt;0\}} -\frac{x_j}{d_j},</div>
+<script type="math/tex; mode=display"> \alpha^* = \min_{j\in \{j\in B| d_j<0\}} -\frac{x_j}{d_j},</script>
+</div>
+<p>then <span><span class="MathJax_Preview">\vx+\alpha^*\vd \geq \vzero</span><script type="math/tex">\vx+\alpha^*\vd \geq \vzero</script></span> is satisfed and <span><span class="MathJax_Preview">\alpha^*</span><script type="math/tex">\alpha^*</script></span> is the largest stepsize that can be used without violating the feasiblity condition.</p>
+</li>
+</ol>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Convex_function/" title="Convex function" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Convex function
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../homework/" title="Submissions" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Submissions
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Michael Friedlander and Babhru Joshi
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a45f732b.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.c03f0417.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
