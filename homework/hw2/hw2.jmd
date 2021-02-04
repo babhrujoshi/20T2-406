@@ -1,4 +1,4 @@
-# **CPSC 406: Homework 2 (Due Feb 8, 11:59pm)**
+# **CPSC 406: Homework 2 (Due Feb 9, 11:59pm)**
 **Submission Instructions:** The solution will be submitted electronically, using the Canvas system. Solution should be
  typeset using LaTeX (handwritten solution will not be accepted). Using jupyter notebook to typeset the solution, which supports 
  Julia and Python, is recommended. If you are using jupyter notebook, submit both the ipynb file and its pdf output. 
@@ -61,7 +61,7 @@
 
 	10. Rewrite the problem as 
 	
-		$$\minimize{\vx\in \R^n} \quad \|r(\vx)\|_2^2$$
+		$$\minimize_{\vx\in \R^n} \quad \|r(\vx)\|_2^2$$
 
 		that is, identify $r(\vx) : \R^n \to  \R^m$. Compute also the Jacobian of $r(\vx)$
 		

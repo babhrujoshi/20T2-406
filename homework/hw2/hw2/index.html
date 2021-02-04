@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cpsc-406-homework-2-due-feb-8-1159pm" class="md-skip">
+        <a href="#cpsc-406-homework-2-due-feb-9-1159pm" class="md-skip">
           Skip to content
         </a>
       
@@ -496,7 +496,7 @@
                   
                 
                 
-                <h1 id="cpsc-406-homework-2-due-feb-8-1159pm"><strong>CPSC 406: Homework 2 (Due Feb 8, 11:59pm)</strong><a class="headerlink" href="#cpsc-406-homework-2-due-feb-8-1159pm" title="Permanent link">&para;</a></h1>
+                <h1 id="cpsc-406-homework-2-due-feb-9-1159pm"><strong>CPSC 406: Homework 2 (Due Feb 9, 11:59pm)</strong><a class="headerlink" href="#cpsc-406-homework-2-due-feb-9-1159pm" title="Permanent link">&para;</a></h1>
 <p><strong>Submission Instructions:</strong> The solution will be submitted electronically, using the Canvas system. Solution should be
  typeset using LaTeX (handwritten solution will not be accepted). Using jupyter notebook to typeset the solution, which supports 
  Julia and Python, is recommended. If you are using jupyter notebook, submit both the ipynb file and its pdf output. 
@@ -577,8 +577,8 @@ employed to solve it. We will assume that <span><span class="MathJax_Preview">n 
 <li>
 <p>Rewrite the problem as </p>
 <div>
-<div class="MathJax_Preview">\minimize{\vx\in \R^n} \quad \|r(\vx)\|_2^2</div>
-<script type="math/tex; mode=display">\minimize{\vx\in \R^n} \quad \|r(\vx)\|_2^2</script>
+<div class="MathJax_Preview">\minimize_{\vx\in \R^n} \quad \|r(\vx)\|_2^2</div>
+<script type="math/tex; mode=display">\minimize_{\vx\in \R^n} \quad \|r(\vx)\|_2^2</script>
 </div>
 <p>that is, identify <span><span class="MathJax_Preview">r(\vx) : \R^n \to  \R^m</span><script type="math/tex">r(\vx) : \R^n \to  \R^m</script></span>. Compute also the Jacobian of <span><span class="MathJax_Preview">r(\vx)</span><script type="math/tex">r(\vx)</script></span></p>
 <div>
@@ -633,7 +633,7 @@ the constant step size cases. Write 2-3 sentences comparing each approach. Also,
 <script type="math/tex; mode=display">\mD = \bmat \mA & \vb\\ 
     \vb^\intercal & c\emat,</script>
 </div>
-<p>where <span><span class="MathJax_Preview">\mA \in \mathbb{R}^{n\times n}</span><script type="math/tex">\mA \in \mathbb{R}^{n\times n}</script></span>, <span><span class="MathJax_Preview">b \in \mathbb{R}^n</span><script type="math/tex">b \in \mathbb{R}^n</script></span>, and <span><span class="MathJax_Preview">c \in \mathbb{R}</span><script type="math/tex">c \in \mathbb{R}</script></span>. Suppose that <span><span class="MathJax_Preview">\mA \succ 0</span><script type="math/tex">\mA \succ 0</script></span>. Prove that <span><span class="MathJax_Preview">\mD \succeq 0</span><script type="math/tex">\mD \succeq 0</script></span> if and only if <span><span class="MathJax_Preview">c = \vb^\intercal \mA^{-1} b\geq 0</span><script type="math/tex">c = \vb^\intercal \mA^{-1} b\geq 0</script></span>.</p>
+<p>where <span><span class="MathJax_Preview">\mA \in \mathbb{R}^{n\times n}</span><script type="math/tex">\mA \in \mathbb{R}^{n\times n}</script></span>, <span><span class="MathJax_Preview">b \in \mathbb{R}^n</span><script type="math/tex">b \in \mathbb{R}^n</script></span>, and <span><span class="MathJax_Preview">c \in \mathbb{R}</span><script type="math/tex">c \in \mathbb{R}</script></span>. Suppose that <span><span class="MathJax_Preview">\mA \succ 0</span><script type="math/tex">\mA \succ 0</script></span>. Prove that <span><span class="MathJax_Preview">\mD \succeq 0</span><script type="math/tex">\mD \succeq 0</script></span> if and only if <span><span class="MathJax_Preview">c - \vb^\intercal \mA^{-1} b\geq 0</span><script type="math/tex">c - \vb^\intercal \mA^{-1} b\geq 0</script></span>.</p>
 </li>
 <li>
 <p><strong>Beck 2.19</strong> Let <span><span class="MathJax_Preview">f(x) = \vx^\intercal \mA\vx+2\vb^\intercal \vx+ c</span><script type="math/tex">f(x) = \vx^\intercal \mA\vx+2\vb^\intercal \vx+ c</script></span>, where <span><span class="MathJax_Preview">\mA \in \mathbb{R}^{n\times n}</span><script type="math/tex">\mA \in \mathbb{R}^{n\times n}</script></span> is symmetric, <span><span class="MathJax_Preview">\vb \in\mathbb{R}^n</span><script type="math/tex">\vb \in\mathbb{R}^n</script></span>, and <span><span class="MathJax_Preview">c \in \mathbb{R}</span><script type="math/tex">c \in \mathbb{R}</script></span>. Suppose that <span><span class="MathJax_Preview">A \succeq 0</span><script type="math/tex">A \succeq 0</script></span>. Show that <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is bounded below over <span><span class="MathJax_Preview">\mathbb{R}^n</span><script type="math/tex">\mathbb{R}^n</script></span> if and only if <span><span class="MathJax_Preview">\vb \in \text{Range}(\mA) = \{\mA \vy : \vy \in\mathbb{R}^n\}.</span><script type="math/tex">\vb \in \text{Range}(\mA) = \{\mA \vy : \vy \in\mathbb{R}^n\}.</script></span></p>
