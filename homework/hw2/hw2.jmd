@@ -101,7 +101,7 @@
 	$$\mD = \bmat \mA & \vb\\ 
 		\vb^\intercal & c\emat,$$
 
-	where $\mA \in \mathbb{R}^{n\times n}$, $b \in \mathbb{R}^n$, and $c \in \mathbb{R}$. Suppose that $\mA \succ 0$. Prove that $\mD \succeq 0$ if and only if $c - \vb^\intercal \mA^{-1} b\geq 0$.
+	where $\mA \in \mathbb{R}^{n\times n}$, $b \in \mathbb{R}^n$, and $c \in \mathbb{R}$. Suppose that $\mA \succ 0$. Prove that $\mD \succeq 0$ if and only if $c - \vb^\intercal \mA^{-1} \vb\geq 0$.
 
 17. **Beck 2.19** Let $f(x) = \vx^\intercal \mA\vx+2\vb^\intercal \vx+ c$, where $\mA \in \mathbb{R}^{n\times n}$ is symmetric, $\vb \in\mathbb{R}^n$, and $c \in \mathbb{R}$. Suppose that $A \succeq 0$. Show that $f$ is bounded below over $\mathbb{R}^n$ if and only if $\vb \in \text{Range}(\mA) = \{\mA \vy : \vy \in\mathbb{R}^n\}.$
 
