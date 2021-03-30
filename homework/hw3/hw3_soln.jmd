@@ -1,0 +1,140 @@
+# **Homework 3 solution**
+
+
+
+1. To compute $\tr(A^TB)$, we must first form the matrix product $A^TB$ which requires $O(n^2m)$ flops and $O(n^2)$ storage. Then extracting the trace is an additional $O(n)$ flops and $O(1)$ storage. So, in total, $O(n^2m + n)$ flops (or $O(n^2m)$ as the dominating term) and $O(n^2+1)$ storage (or just $O(n^2)$). 
+
+    To compute the right and side, we do not need any additional storage, and just require $O(mn)$ flops. 
+
+    Now if $m \gg n$, this is a significant reduction in storage, and if $n$ is large is a significant reduction in flops.  The key takeaway is that, for proper scalability, though many things are equivalent, how you implement it matters. 
+
+2. **Structered matrices.** Consider a  matrix $A\in \Re^{n\times n}$.
+
+    1.  Pick any $u\in \R^n$. Then
+	    $$ u^TAu = \sum_{i=1}^n A_{ii} u_i^2.$$
+
+        2. $(\Rightarrow)$ Now for any $u$, if for all $i$, $A_{ii} \geq 0$, then $u^TAu \geq 0$. And, for any $u\neq 0$, if $A_{ii}>0$, then $u^TAu > 0$. 
+		
+		3. $(\Leftarrow)$ For the other direction, suppose for some $i$,  $A_{ii} = 0$. Then picking $u=e_i\neq 0$, $u^TAu = A_{ii} = 0$. If, on the other hand,  $A_{ii} < 0$, then $u^TAu = A_{ii} < 0$.
+	
+	2. Suppose that $A$ is block diagonal. 
+       
+        1. Pick any $u \in \R^n$. Partition $u$ such that 
+			
+            $$
+			u = \bmat u^{(1)} \\ u^{(2)} \\ \vdots \\ u^{(l)} \emat, \qquad u^TAu = \sum_{k=1}^l \underbrace{(u^{(k)})^TA^{(k)}u^{(k)}}_{c_k}
+			$$
+			
+			
+			1. $(\Rightarrow)$ Now for any $u$, if for all $k$, $A^{(k)} \succeq 0$, then for all $k$, $c_k \geq 0$ and $u^TAu \geq 0$. And, for any $u\neq 0$, if for all $k$, $A^{(k)} \succ 0$, then for all $k$, $c_k \geq 0$, there exists at least one $k$ where $c_k > 0$, and therefore  $u^TAu > 0$. 
+				
+			2. $(\Leftarrow, \succeq)$	For the other direction, suppose for some $k$,  $A^{(k)} \not\succeq 0$. Then find the corresponding lower dimensional vector $v$ where $v^T(A^{(k)})v <0$. Then pack $u$ such that
+				
+                $$
+				u^{(i)} = 
+				\begin{cases}
+				v & \text{if } i = k\\
+				0 & \text{if } i \neq k.
+				\end{cases}
+				$$
+
+				Then $u^TAu = v^T(A^{(k)})v <0$, which implies $A^{(k)}\not\succeq 0$. (Note the opposite of $\succeq 0$ is NOT $\preceq 0$.)
+				
+			3.  $(\Leftarrow, \succ)$ Similarily, if $A^{(k)} \not\succ 0$, find the corresponding lower dimensional vector $v$ where $v^T(A^{(k)})v \leq 0$. Then pack $u$ such that
+				
+                $$
+				u^{(i)} = 
+				\begin{cases}
+				v & \text{if } i = k\\
+				0 & \text{if } i \neq k.
+				\end{cases}
+				$$
+
+				Then $u^TAu = v^T(A^{(k)})v \leq 0$, which implies $A^{(k)}\not\succ 0$. 
+			
+
+3. Here, $f:\R^n \rightarrow \R$ is a twice continuously differentiable function that has $L$-Lipschitz gradient.
+
+    9. The directional derivative of $\nabla f$ at $x$ in the direction $v$ is
+
+        $$
+        \begin{align}
+        \nabla^2 f(x) v &= \lim_{t \searrow 0} \frac{\nabla f(x+tv)-\nabla f(x)}{t}.\\
+        \end{align}
+        $$
+
+        So,
+
+        $$
+        \begin{align}
+        \|\nabla^2 f(x) v\|_2 &= \|\lim_{t \searrow 0} \frac{\nabla f(x+tv)-\nabla f(x)}{t}\|_2\\
+        & = \lim_{t \searrow 0} \|\frac{\nabla f(x+tv)-\nabla f(x)}{t}\|_2\\
+        & \leq \lim_{t \searrow 0} \frac{L\|tv\|}{t}\\
+        & = L\|v\|_2 
+        \end{align}
+        $$
+
+        where second line follows from continuity of norms and third line follows from $L$-Lipschitz of gradient.
+    
+    10. From above, we have that any fixed $x$  satisfies the inequality $\|\nabla^2 f(x) v\| \leq L\|v\|_2$ for all $v$.
+
+        Fix $x$ and let $(\lambda_+,v_+)$ be the maximal eigen-pair of the matrix $\nabla^2 f(x)$. So, $\|\nabla^2 f(x) v\| \leq L\|v\|_2$ for all $v$ gives $\lambda_+ \leq L$. Thus, all eigenvalues of $\nabla^2 f(x)$ is bounded from above by $L$. As $x$ is arbitrary, we get that for all $x$, the eigenvalues of $\nabla^2 f(x)$ is bounded from above by $L$.
+
+    11. Using Taylor's remainder theorem, we get
+
+        $$f(v) = f(w) -\nabla f(w)^\intercal (v-w) + \frac{1}{2}(v-w)^\intercal\nabla^2 f(\xi) (v-w),$$
+        
+        where $v, w \in \R^n$ and $\xi \in [v,w]$. Since $\|\nabla^2 f(x) v\| \leq L\|v\|_2$ for all $v$ and $x$, we also have $v^\intercal \nabla^2 f(x) v \leq L\|v\|_2^2$ all $v$ and $x$. Thus,
+
+        $$f(v) = f(w) +\nabla f(w)^\intercal (v-w) + \frac{L}{2}\|v-w\|_2^2.$$
+
+    12. A gradient descent step is $x_{k+1} = x_k - \alpha \nabla f(x_k)$. Substituting $v = x_{k+1}$ and $w = x_k$, we get
+
+        $$
+        \begin{align}
+        f(x_{k+1}) &= f(x_k) +\nabla f(x_k)^\intercal (x_{k+1}-x_k) + \frac{L}{2}\|x_{k+1}-x_k\|_2^2\\
+        & =  f(x_k) -\alpha \nabla f(x_k)^\intercal \nabla f(x_k) + \frac{L\alpha^2}{2}\|\nabla f(x_k)\|_2^2\\
+        & =  f(x_k) -\alpha \|\nabla f(x_k)\|_2^2\left( 1 - \frac{L\alpha}{2}\right)\\
+        \end{align} 
+        $$
+
+        Note that $\alpha\|\nabla f(x_k)\|_2^2( 1 - \frac{L\alpha}{2})>0$ if $x_k$ is not a stationary point and $0 < \alpha < \frac{2}{L}$
+
+4. Take any $x\in \setS$ and $y\in \setS$. Then take any convex combination 
+    
+    \begin{equation}
+    z = \theta x + (1-\theta) y,\qquad 0\leq \theta \leq 1.
+    \end{equation}
+    
+    Then for all $\setS_i$,
+
+    \begin{equation}
+    x,y\in \setS \Rightarrow x,y\in \setS_i \overset{\text{convexity of $\setS_i$}}{\Rightarrow} z\in \setS_i.
+    \end{equation}
+    
+    Therefore $z\in \setS$, and thus $\setS$ is a convex set.
+
+5. Again, we can just use the definition of convexity. If 
+    
+    \begin{equation}
+    \|x_1\|_2 \leq t_1,\qquad \|x_2\|_2\leq t_2
+    \end{equation}
+    
+    then picking any $\theta$ where $0 < \theta < 1$ and defining
+    
+    \begin{equation}
+    x = \theta x_1 + (1-\theta) x_2,\qquad t = \theta t_1 + (1-\theta) t_2
+    \end{equation}
+    
+    then
+    
+    \begin{align*}
+    \|x\|_2 =& \|\theta x_1 + (1-\theta) x_2\|_2 \\
+    \overset{(a)}{\leq} & \|\theta x_1\|_2 + \|(1-\theta) x_2\|_2 \\
+    \overset{(b)}{=}& \theta \|x_1\|_2 + (1-\theta) \|x_2\|_2\\
+    \leq& \theta t_1 + (1-\theta) t_2\\
+    =&t
+    \end{align*}
+    
+    where (a) is by triangle inequality and (b) is by the positive homogeniety of norms. ($\|\alpha x\| = |\alpha|\|x\|$ for any norm, for any scalar $\alpha$.) 
+    Therefore for any $(x_1,t_1)\in \setS$ and $(x_2,t_2)\in \setS$, any convex combination $(x,t)\in \setS$.
