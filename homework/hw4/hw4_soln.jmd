@@ -1,51 +1,9 @@
 # **Homework 4 solution**
 ```julia; echo = false
-using Optim, ForwardDiff, LinearAlgebra, Printf
-N = 3;
+using Optim, ForwardDiff, LinearAlgebra, Printf,  Convex, ECOS
 ```
 
-
-
-1. Take any $x\in \setS$ and $y\in \setS$. Then take any convex combination 
-    
-    \begin{equation}
-    z = \theta x + (1-\theta) y,\qquad 0\leq \theta \leq 1.
-    \end{equation}
-    
-    Then for all $\setS_i$,
-
-    \begin{equation}
-    x,y\in \setS \Rightarrow x,y\in \setS_i \overset{\text{convexity of $\setS_i$}}{\Rightarrow} z\in \setS_i.
-    \end{equation}
-    
-    Therefore $z\in \setS$, and thus $\setS$ is a convex set.
-
-2. Again, we can just use the definition of convexity. If 
-    
-    \begin{equation}
-    \|x_1\|_2 \leq t_1,\qquad \|x_2\|_2\leq t_2
-    \end{equation}
-    
-    then picking any $\theta$ where $0 < \theta < 1$ and defining
-    
-    \begin{equation}
-    x = \theta x_1 + (1-\theta) x_2,\qquad t = \theta t_1 + (1-\theta) t_2
-    \end{equation}
-    
-    then
-    
-    \begin{align*}
-    \|x\|_2 =& \|\theta x_1 + (1-\theta) x_2\|_2 \\
-    \overset{(a)}{\leq} & \|\theta x_1\|_2 + \|(1-\theta) x_2\|_2 \\
-    \overset{(b)}{=}& \theta \|x_1\|_2 + (1-\theta) \|x_2\|_2\\
-    \leq& \theta t_1 + (1-\theta) t_2\\
-    =&t
-    \end{align*}
-    
-    where (a) is by triangle inequality and (b) is by the positive homogeniety of norms. ($\|\alpha x\| = |\alpha|\|x\|$ for any norm, for any scalar $\alpha$.) 
-    Therefore for any $(x_1,t_1)\in \setS$ and $(x_2,t_2)\in \setS$, any convex combination $(x,t)\in \setS$.
-
-3. 
+1. 
 
     1. Define 
 
@@ -122,62 +80,66 @@ N = 3;
         \nabla g(x^*)^T(v-x^*) =& (x^*-y)^T(v-x^*) = (x^*-(x^*-\alpha\nabla f(x^*)))^T(v-x^*)\\ =& \alpha\nabla f(x^*)^T(v-x^*)\\ \geq & 0,\;\forall v\in\mathcal C
         \end{align*}
 
-4. 
+2.  Let $x^* = \text{proj}_\setC(z)$ be the minimizer of 
 
-    1. Let $x^* = \text{proj}_\setC(z)$ be the minimizer of 
+    \begin{equation}
+    \argmin_{x \in \setC} \frac{1}{2}\|x - z\|_2^2.
+    \end{equation}
 
-        \begin{equation}
-        \argmin_{x \in \setC} \frac{1}{2}\|x - z\|_2^2.
-        \end{equation}
+    By optimality condition, $-(x^* - z) \in \setN_{\setS}(x^*)$. We will first show that $x^* - z \in \range(A^T)$ by showing the sets $\range(A^T)$ and $\setN_\setS(x)$ are equal. Consider the shifted set $\setS' = \{u-x : u\in \setS\}$. Then 
 
-        By optimality condition, $-(x^* - z) \in \setN_{\setS}(x^*)$. We will first show that $x^* - z \in \range(A^T)$ by showing the sets $\range(A^T)$ and $\setN_\setS(x)$ are equal. Consider the shifted set $\setS' = \{u-x : u\in \setS\}$. Then 
+    \begin{align*}
+    \setN_{\setS}(x) &= \{g \in \R^n : g^T(u - x) \leq 0, \forall u\in \setS\}\\
+    &= \{g \in \R^n : g^Tu \leq 0, \forall u\in \setS'\}\\
+    &= \{g\in \R^n : g^Tu \leq 0,\; \forall u\in \vnull(A)\}
+    \end{align*}
 
-	    \begin{align*}
-        \setN_{\setS}(x) &= \{g \in \R^n : g^T(u - x) \leq 0, \forall u\in \setS\}\\
-        &= \{g \in \R^n : g^Tu \leq 0, \forall u\in \setS'\}\\
-        &= \{g\in \R^n : g^Tu \leq 0,\; \forall u\in \vnull(A)\}
-        \end{align*}
-	
-	    Note that if $u\in \vnull(A)$ and $g^Tu < 0$, then $-u\in \vnull(A)$ and $g^T(-u) > 0$. Therefore, it must be that 
-	
-        \begin{equation}
-        \setN_\setS(x) = \{g \in \R^n : g^Tu = 0,\; \forall u\in \vnull(A)\} =\range(A^T)
-        \end{equation}
-        
-        Therefore, there exist a $y$ such that $A^Ty = x^* - z$. Also, by feasibility, we have that $Ax^* = b$. Putting these two equation together, we get $x^* = z + A^T(AA^T)^{-1}(b-Az)$.
+    Note that if $u\in \vnull(A)$ and $g^Tu < 0$, then $-u\in \vnull(A)$ and $g^T(-u) > 0$. Therefore, it must be that 
 
-    2.  The minimizer is $x = (0.027,0.446,0.527)$.  
+    \begin{equation}
+    \setN_\setS(x) = \{g \in \R^n : g^Tu = 0,\; \forall u\in \vnull(A)\} =\range(A^T)
+    \end{equation}
+    
+    Therefore, there exist a $y$ such that $A^Ty = x^* - z$. Also, by feasibility, we have that $Ax^* = b$. Putting these two equation together, we get $x^* = z + A^T(AA^T)^{-1}(b-Az)$.
 
-        ```julia
-        # define the n=3 Rosenbrock function
-        f3(x)= 100.0 * (x[2] - x[1]^2)^2 + (1-x[1])^2 + 100.0 * (x[3]-x[2]^2)^2+(1-x[2])^2
-        # compute the gradient
-        g(x) = ForwardDiff.gradient(f3, x)
-        #setup the problem
-        a1 = ones(1,3) ; b1 = 1
-        a2 = [2 1 0]; b2 = 0.5
-        A = vcat(a1,a2); b = vcat(b1,b2);
-        #compute projection
-        proj(z) = z + A'* ( (A*A') \ (-A*z+b))
-        #projected gradient step
-        xk = [];
-        xk = push!(xk,zeros(3));
-        step = 1e-4;
-        itt_max = 500;
-        for i in 1:itt_max
-            xkp = xk[i] - step * g(xk[i]);
-            xkp = proj(xkp)
-            if rem(i,100) == 0
-                @printf("iteration = %d, successive error = %f\n",i, norm(xk[i] - xkp))
-            end
-            push!(xk,xkp)
+3.  Note that the gradient of the objective at the cadidate minimizer is $\nabla f(x^*) = (0,.857,0)$ and, as result, satisfies $-\nabla f(x^*) \in \mathcal{N}_{\geq 0}(x^*)$. The minimizer is $x = (2.429,0.000,0.857)$ with optimal value -10.571.  
+
+    ```julia
+    # define the n=3 Rosenbrock function
+    f3(x)= 2*x[1]^2 + 3*x[2]^2 + 4*x[3]^2 + 2*x[1]*x[2] -2*x[1]*x[3] -8*x[1] -4*x[2]-2*x[3]    
+    # compute the gradient
+    g(x) = ForwardDiff.gradient(f3, x)
+    #compute Lipschitz
+    AtA = [4 2 -2;2 6 0;-2 0 8]
+    L = norm(AtA,2)
+    #compute projection
+    proj(z) = max.(z,0)
+    #projected gradient step
+    xk = zeros(3);
+    step = 1/L;
+    xkp = xk;
+    for i in 1:100
+        xkp = xk - step * g(xk);
+        xkp = proj(xkp)
+        if rem(i,10) == 0
+            @printf("iteration = %d, successive error = %f\n",i, norm(xk - xkp))
         end
-        #print solution
-        @printf("\nThe minimizer is x = (%.3f,%.3f,%.3f)\n", xk[itt_max][1], xk[itt_max][2], xk[itt_max][3])
-        ```
+        xk = xkp
+    end
+    @printf("\nThe minimizer is x = (%.3f,%.3f,%.3f) with optimal value = %.3f\n", xk[1], xk[2], xk[3],f3(xk))
+    #setup problem for Convex.jl and solve
+    chol = cholesky(AtA/2)
+    A = chol.U
+    b = (A')\([8;4;2]./2)
+
+    x = Variable(3)
+    problem = minimize(sumsquares(A*x - b) - norm(b,2)^2, [x>=0])
+    solve!(problem, ECOS.Optimizer(verbose = false))
+    @printf("\nThe minimizer is x = (%.3f,%.3f,%.3f) with optimal value = %.3f\n", x.value[1], x.value[2], x.value[3], problem.optval)
+    ```
 
 
-5. 
+4. 
 
     1. The function $f(x) = - \sum_{i=1}^n x_i \log x_i$ is concave in the simplex set because Hessian is a diagonal matrix given by
 
