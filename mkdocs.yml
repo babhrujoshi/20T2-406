@@ -1,1 +1,89 @@
-site_name: My Docs
+# Project information
+site_name: CPSC406 &mdash; Computational Optimization
+site_description: Home page for CPSC406 Term 2 2020
+site_author: Michael P. Friedlander and Babhru Joshi
+site_url: https://babhrujoshi.github.io/20T2-406/
+
+# Repository
+# repo_name: babhrujoshi/20T2-406
+# repo_url: https://babhrujoshi.github.io/20T2-406/
+
+# Copyright
+copyright: 'Copyright &copy; 2020 Michael Friedlander and Babhru Joshi'
+
+# Configuration
+theme:
+  name: 'material'  
+  feature:
+    tabs: true
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.superfences
+
+extra_javascript:
+  - 'javascripts/extra.js'
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+
+# Page tree
+nav:
+  - Home Page: index.md
+  - Grades: grades.md
+  - Schedule: schedule.md
+  - Lecture notes:
+      # - Introduction: notes/introduction.md
+      - Mathematical background: notes/background.md
+      - Least squares: notes/Least_squares.md
+      - QR factorization: notes/QR_factorization.md
+      - Regularized least squares: notes/Regularized_LS.md
+      - Non-linear least squares: notes/Non-linear_LS.md
+      - Unconstrained optimization: notes/unconstrained.md
+      - Gradient descent: notes/Gradient_Descent.md
+      - Newton's method: notes/Newtons_method.md
+      - Quasi-Newton methods: notes/Quasi_newton.md
+    #   - Cholesky factorization: notes/Cholesky_factorization.md
+      - Linear constraint: notes/Linear_constraint.md
+      - Convex sets: notes/Convex_set.md
+      - Constrained optimization: notes/Constrained_optimization.md
+      - Convex function: notes/Convex_function.md
+      - Linear programming: notes/Linear_programming.md
+  - Homework:
+      - Submissions: homework/index.md
+      - Homework 1: homework/hw1/hw1.md
+      - Homework 2: homework/hw2/hw2.md
+      - Homework 3: homework/hw3/hw3.md
+      - Homework 4: homework/hw4/hw4.md
+      - Homework 5: homework/hw5/hw5.md
+  - In-class Activity:
+      - Digit classification: InclassActivity/mlactivity/mlactivity.md
+
+
+google_analytics:
+  - 'UA-4736412-7'
+  - 'auto'
